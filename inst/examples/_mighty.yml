@@ -1,0 +1,13 @@
+external_data:
+  - id: DM
+    keys:
+      - STUDYID
+      - USUBJID
+  - id: VS
+    keys:
+      - STUDYID
+      - USUBJID
+  - id: AE
+    keys:
+      - STUDYID
+      - USUBJID

@@ -1,0 +1,90 @@
+id: ADVS
+label: Vital Signs Analysis Dataset
+class: BASIC DATA STRUCTURE
+structure: One record per vital sign parameter, per visit, per subject
+keys: [USUBJID, PARAMCD, AVISITN]
+
+population:
+  base:
+    - domain: VS
+      depends:
+        - VSTESTCD
+      filter: VSTESTCD != ""
+  global:
+    - filter: SAFFL == "Y"
+      depends:
+        - SAFFL
+
+columns:
+  - id: STUDYID
+    label: Study Identifier
+    method: VS.STUDYID
+    core: Req
+
+  - id: USUBJID
+    label: Unique Subject Identifier
+    method: VS.USUBJID
+    core: Req
+
+  - id: SAFFL
+    label: Safety Population Flag
+    method: ADSL.SAFFL
+    core: Req
+
+  - id: TRTP
+    label: Planned Treatment
+    method: ADSL.TRT01P
+    core: Req
+
+  - id: VISITNUM
+    label: Visit Number
+    method: VS.VISITNUM
+    core: Perm
+
+  - id: AVISITN
+    label: Analysis Visit (N)
+    method: Derived from VISITNUM
+    core: Req
+
+  - id: AVISIT
+    label: Analysis Visit
+    method: Derived from VISIT converted to title case
+    core: Req
+
+  - id: PARAMCD
+    label: Parameter Code
+    method: VS.VSTESTCD
+    core: Req
+
+  - id: PARAM
+    label: Parameter
+    method: VS.VSTEST
+    core: Req
+
+  - id: AVAL
+    label: Analysis Value
+    method: VS.VSSTRESN
+    core: Req
+
+  - id: AVALC
+    label: Analysis Value (C)
+    core: Perm
+
+rows:
+  - id: BASELINE
+    method: Add baseline visit as a new row
+
+parameters:
+  - id: BMI
+    label: Body Mass Index (kg/m^2)
+    columns:
+      - id: AVAL
+        method: Derived from height and weight
+
+  - id: BMIGRP
+    label: Body Mass Index Group
+    columns:
+      - id: AVALC
+        method: BMI grouped in <20, 20-<25, 25-<30, 30+
+      - id: AVAL
+        method: Numeric representation of AVALC

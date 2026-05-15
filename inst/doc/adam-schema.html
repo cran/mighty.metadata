@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>ADaM specifications</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">ADaM specifications</h1>
+
+
+
+<p><code>mighty.metadata</code> uses YAML files to specify Analysis Data
+Model (ADaM) datasets. Each YAML file follows a fixed structure with
+defines properties and entries.</p>
+<p>This structure is defined in a <a href="https://json-schema.org">JSON-schema</a> that you can access
+with:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">system.file</span>(<span class="st">&quot;schema&quot;</span>, <span class="st">&quot;adam.json&quot;</span>, <span class="at">package =</span> <span class="st">&quot;mighty.metadata&quot;</span>)</span></code></pre></div>
+<p>Below you can find a detailed description of the structure.</p>
+<div id="mighty-metadata-adam-domain-specification" class="section level1">
+<h1>Mighty Metadata ADaM Domain Specification</h1>
+<p>Common schema for ADaM dataset specification in the mightyverse</p>
+<table>
+<colgroup>
+<col width="8%" />
+<col width="64%" />
+<col width="26%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Required</th>
+<th align="left">Additional Properties</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">object</td>
+<td align="left">id<br>label<br>class<br>structure<br>keys<br>columns</td>
+<td align="left">No</td>
+</tr>
+</tbody>
+</table>
+<div id="properties" class="section level2">
+<h2>Properties</h2>
+<table>
+<colgroup>
+<col width="11%" />
+<col width="58%" />
+<col width="19%" />
+<col width="9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+<th align="left">Type</th>
+<th align="left">Required</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">id</td>
+<td align="left">Name of the ADaM dataset</td>
+<td align="left"><a href="#name">cdisc/name</a></td>
+<td align="left">Yes</td>
+</tr>
+<tr class="even">
+<td align="left">label</td>
+<td align="left">Label of the ADaM dataset</td>
+<td align="left">string</td>
+<td align="left">Yes</td>
+</tr>
+<tr class="odd">
+<td align="left">include</td>
+<td align="left">Conditional expression to include the domain</td>
+<td align="left"><a href="#include">mighty/include</a></td>
+<td align="left">No</td>
+</tr>
+<tr class="even">
+<td align="left">class</td>
+<td align="left">CDISC class of the dataset</td>
+<td align="left"><a href="#class">cdisc/class</a></td>
+<td align="left">Yes</td>
+</tr>
+<tr class="odd">
+<td align="left">subclass</td>
+<td align="left">CDISC subclass of the dataset</td>
+<td align="left"><a href="#subclass">cdisc/subclass</a></td>
+<td align="left">No</td>
+</tr>
+<tr class="even">
+<td align="left">structure</td>
+<td align="left">Text description of the structure of the dataset</td>
+<td align="left">string</td>
+<td align="left">Yes</td>
+</tr>
+<tr class="odd">
+<td align="left">keys</td>
+<td align="left">Key variables for the dataset</td>
+<td align="left"><a href="#keys">keys</a></td>
+<td align="left">Yes</td>
+</tr>
+<tr class="even">
+<td align="left">comment</td>
+<td align="left">Comment to the dataset</td>
+<td align="left">string</td>
+<td align="left">No</td>
+</tr>
+<tr class="odd">
+<td align="left">usecore</td>
+<td align="left">Flag to populate with core variables from ADSL</td>
+<td align="left">boolean</td>
+<td align="left">No</td>
+</tr>
+<tr class="even">
+<td align="left">population</td>
+<td align="left">Population and base domain used to create the
+dataset</td>
+<td align="left"><a href="#population">mighty/population</a></td>
+<td align="left">No</td>
+</tr>
+<tr class="odd">
+<td align="left">columns</td>
+<td align="left">Columns in the dataset</td>
+<td align="left"><a href="#columns">columns</a></td>
+<td align="left">Yes</td>
+</tr>
+<tr class="even">
+<td align="left">rows</td>
+<td align="left">Row derivations for mighty</td>
+<td align="left"><a href="#rows">rows</a></td>
+<td align="left">No</td>
+</tr>
+<tr class="odd">
+<td align="left">parameters</td>
+<td align="left">Parameters in a BDS dataset</td>
+<td align="left"><a href="#parameters">parameters</a></td>
+<td align="left">No</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="definitions" class="section level1">
+<h1>Definitions</h1>
+<div id="keys" class="section level2">
+<h2>keys</h2>
+<p>Keys are always unique and of minimum length 1</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Items</th>
+<th align="left">Min Items</th>
+<th align="left">Unique Items</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">array</td>
+<td align="left"><a href="#name">cdisc/name</a></td>
+<td align="left">1</td>
+<td align="left">Yes</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="#name">cdisc/name</a></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="columns" class="section level2">
+<h2>columns</h2>
+<p>List of column specifications</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Items</th>
+<th align="left">Min Items</th>
+<th align="left">Unique Items</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">array</td>
+<td align="left"><a href="#column">column</a></td>
+<td align="left">1</td>
+<td align="left">Yes</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="column" class="section level2">
+<h2>column</h2>
+<p>Specification of a single column</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Required</th>
+<th align="left">Additional Properties</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">object</td>
+<td align="left">id</td>
+<td align="left">No</td>
+</tr>
+</tbody>
+</table>
+<div id="properties-1" class="section level3">
+<h3>Properties</h3>
+<table>
+<colgroup>
+<col width="7%" />
+<col width="71%" />
+<col width="14%" />
+<col width="6%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+<th align="left">Type</th>
+<th align="left">Required</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">id</td>
+<td align="left">Name of the column</td>
+<td align="left"><a href="#name">cdisc/name</a></td>
+<td align="left">Yes</td>
+</tr>
+<tr class="even">
+<td align="left">include</td>
+<td align="left">Conditional expression to include the column</td>
+<td align="left"><a href="#include">mighty/include</a></td>
+<td align="left">No</td>
+</tr>
+<tr class="odd">
+<td align="left">label</td>
+<td align="left">Label of the column</td>
+<td align="left">string</td>
+<td align="left">No</td>
+</tr>
+<tr class="even">
+<td align="left">method</td>
+<td align="left">How to derive the column (free text)</td>
+<td align="left">string</td>
+<td align="left">No</td>
+</tr>
+<tr class="odd">
+<td align="left">origin</td>
+<td align="left">Origin type of the column</td>
+<td align="left"><a href="#origin">cdisc/origin</a></td>
+<td align="left">No</td>
+</tr>
+<tr class="even">
+<td align="left">codelist</td>
+<td align="left">Codelist of possible values of the column</td>
+<td align="left">string</td>
+<td align="left">No</td>
+</tr>
+<tr class="odd">
+<td align="left">is_core</td>
+<td align="left">Flag for designating a core variables in subject level
+datasets</td>
+<td align="left">boolean</td>
+<td align="left">No</td>
+</tr>
+<tr class="even">
+<td align="left">format</td>
+<td align="left">Data format of the column</td>
+<td align="left"><a href="#dataformat">standard/dataformat</a></td>
+<td align="left">No</td>
+</tr>
+<tr class="odd">
+<td align="left">component</td>
+<td align="left">Mighty component to create the column</td>
+<td align="left"><a href="#component">mighty/component</a></td>
+<td align="left">No</td>
+</tr>
+<tr class="even">
+<td align="left">depends</td>
+<td align="left">dependencies required to create the column</td>
+<td align="left"><a href="#depends">mighty/depends</a></td>
+<td align="left">No</td>
+</tr>
+<tr class="odd">
+<td align="left">core</td>
+<td align="left">Describes whether a variable is required (Req),
+conditionally required (Cond) or permissible (Perm)</td>
+<td align="left"><a href="#core">cdisc/core</a></td>
+<td align="left">No</td>
+</tr>
+<tr class="even">
+<td align="left">comment</td>
+<td align="left">Comment to the column (free text)</td>
+<td align="left">string</td>
+<td align="left">No</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="rows" class="section level2">
+<h2>rows</h2>
+<p>List of row action specifications. Typically used when adding
+additional rows to the data.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Items</th>
+<th align="left">Min Items</th>
+<th align="left">Unique Items</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">array</td>
+<td align="left"><a href="#row">row</a></td>
+<td align="left">1</td>
+<td align="left">Yes</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="row" class="section level2">
+<h2>row</h2>
+<p>Specification of a single row action</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Required</th>
+<th align="left">Additional Properties</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">object</td>
+<td align="left">id</td>
+<td align="left">No</td>
+</tr>
+</tbody>
+</table>
+<div id="properties-2" class="section level3">
+<h3>Properties</h3>
+<table>
+<colgroup>
+<col width="7%" />
+<col width="71%" />
+<col width="13%" />
+<col width="7%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+<th align="left">Type</th>
+<th align="left">Required</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">id</td>
+<td align="left">Unique identifier of the action. Used to reference in
+other places, e.g. as a dependency.</td>
+<td align="left"><a href="#name">cdisc/name</a></td>
+<td align="left">Yes</td>
+</tr>
+<tr class="even">
+<td align="left">include</td>
+<td align="left">Conditional expression to include the row</td>
+<td align="left"><a href="#include">mighty/include</a></td>
+<td align="left">No</td>
+</tr>
+<tr class="odd">
+<td align="left">method</td>
+<td align="left">How to derive the row action (free text)</td>
+<td align="left">string</td>
+<td align="left">No</td>
+</tr>
+<tr class="even">
+<td align="left">component</td>
+<td align="left">Mighty component to do the row action</td>
+<td align="left"><a href="#component">mighty/component</a></td>
+<td align="left">No</td>
+</tr>
+<tr class="odd">
+<td align="left">depends</td>
+<td align="left">Dependencies needed before the action can be carried
+out</td>
+<td align="left"><a href="#depends">mighty/depends</a></td>
+<td align="left">No</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="parameters" class="section level2">
+<h2>parameters</h2>
+<p>Specification of parameters in a BDS dataset</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Items</th>
+<th align="left">Min Items</th>
+<th align="left">Unique Items</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">array</td>
+<td align="left"><a href="#parameter">parameter</a></td>
+<td align="left">1</td>
+<td align="left">Yes</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="parameter" class="section level2">
+<h2>parameter</h2>
+<p>Specification of a single BDS parameter</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Required</th>
+<th align="left">Additional Properties</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">object</td>
+<td align="left">id</td>
+<td align="left">No</td>
+</tr>
+</tbody>
+</table>
+<div id="properties-3" class="section level3">
+<h3>Properties</h3>
+<table>
+<colgroup>
+<col width="9%" />
+<col width="66%" />
+<col width="15%" />
+<col width="8%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+<th align="left">Type</th>
+<th align="left">Required</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">id</td>
+<td align="left">Parameter id (PARAMCD)</td>
+<td align="left"><a href="#name">cdisc/name</a></td>
+<td align="left">Yes</td>
+</tr>
+<tr class="even">
+<td align="left">include</td>
+<td align="left">Conditional expression to include the parameter</td>
+<td align="left"><a href="#include">mighty/include</a></td>
+<td align="left">No</td>
+</tr>
+<tr class="odd">
+<td align="left">label</td>
+<td align="left">Parameter label (PARAM)</td>
+<td align="left">string</td>
+<td align="left">No</td>
+</tr>
+<tr class="even">
+<td align="left">columns</td>
+<td align="left">Additional columns to derive for the parameter,
+e.g. AVAL and AVALC</td>
+<td align="left"><a href="#columns">columns</a></td>
+<td align="left">No</td>
+</tr>
+<tr class="odd">
+<td align="left">component</td>
+<td align="left">Mighty component used to derive the parameter and all
+relevant columns</td>
+<td align="left"><a href="#component">mighty/component</a></td>
+<td align="left">No</td>
+</tr>
+<tr class="even">
+<td align="left">depends</td>
+<td align="left">Dependencies required to create the parameter</td>
+<td align="left"><a href="#depends">mighty/depends</a></td>
+<td align="left">No</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="standard" class="section level2">
+<h2>standard</h2>
+<p>Additional definitions used for e.g. define.xml</p>
+<div id="dataformat" class="section level3">
+<h3>dataformat</h3>
+<p>Format used to display the data</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Required</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">object</td>
+<td align="left">type<br>length</td>
+</tr>
+</tbody>
+</table>
+<div id="properties-4" class="section level4">
+<h4>Properties</h4>
+<table style="width:100%;">
+<colgroup>
+<col width="2%" />
+<col width="8%" />
+<col width="2%" />
+<col width="77%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+<th align="left">Type</th>
+<th align="left">Enum</th>
+<th align="right">Minimum</th>
+<th align="left">Pattern</th>
+<th align="left">Required</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">type</td>
+<td align="left">Data type</td>
+<td align="left">string</td>
+<td align="left">text , integer , float , datetime , date , time ,
+partialDate , partialTime , partialDatetime , incompleteDatetime,
+durationDatetime , intervalDatetime</td>
+<td align="right"></td>
+<td align="left"></td>
+<td align="left">Yes</td>
+</tr>
+<tr class="even">
+<td align="left">length</td>
+<td align="left">Maximum length of content</td>
+<td align="left">integer</td>
+<td align="left">NULL</td>
+<td align="right">1</td>
+<td align="left"></td>
+<td align="left">Yes</td>
+</tr>
+<tr class="odd">
+<td align="left">display</td>
+<td align="left">SAS display format</td>
+<td align="left">string</td>
+<td align="left">NULL</td>
+<td align="right"></td>
+<td align="left">.</td>
+<td align="left">No</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="cdisc" class="section level2">
+<h2>cdisc</h2>
+<p>Definitions from CDISC standards</p>
+<div id="name" class="section level3">
+<h3>name</h3>
+<p>Uppercase identifier</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">string</td>
+<td align="left">^[A-Z][A-Z0-9_]*$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="class" class="section level3">
+<h3>class</h3>
+<p>Subset of CDISC controlled terminology C103329</p>
+<table>
+<colgroup>
+<col width="6%" />
+<col width="93%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Enum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">string</td>
+<td align="left">SUBJECT LEVEL ANALYSIS DATASET<br>BASIC DATA
+STRUCTURE<br>OCCURRENCE DATA STRUCTURE<br>ADAM OTHER</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="subclass" class="section level3">
+<h3>subclass</h3>
+<p>Union of CDISC controlled terminology C165635 and C176227</p>
+<table>
+<colgroup>
+<col width="6%" />
+<col width="93%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Enum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">string</td>
+<td align="left">TIME-TO-EVENT<br>NON-COMPARTMENTAL
+ANALYSIS<br>POPULATION PHARMACOKINETIC ANALYSIS<br>ADVERSE EVENT</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="origin" class="section level3">
+<h3>origin</h3>
+<p>Controlled terminology C170449</p>
+<table>
+<colgroup>
+<col width="7%" />
+<col width="92%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Enum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">string</td>
+<td align="left">Assigned<br>Collected<br>Derived<br>Not
+Available<br>Other<br>Predecessor<br>Protocol</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="core" class="section level3">
+<h3>core</h3>
+<p>Indicator of whether a variable is required (Req), conditionally
+required (Cond), or permissible (Perm) in the dataset</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Enum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">string</td>
+<td align="left">Cond<br>Perm<br>Req</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="mighty" class="section level2">
+<h2>mighty</h2>
+<p>Definitions only relevant when using mighty to generate code</p>
+<div id="population" class="section level3">
+<h3>population</h3>
+<p>mighty - specification of the base domain(s) and any global filters
+to apply</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Required</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">object</td>
+<td align="left">base</td>
+</tr>
+</tbody>
+</table>
+<div id="properties-5" class="section level4">
+<h4>Properties</h4>
+<table>
+<colgroup>
+<col width="6%" />
+<col width="61%" />
+<col width="8%" />
+<col width="23%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+<th align="left">Required</th>
+<th align="left">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">base</td>
+<td align="left">mighty - domains to filter and combine to create
+initial dataset</td>
+<td align="left">Yes</td>
+<td align="left"><a href="#base_input_list">mighty/base_input_list</a></td>
+</tr>
+<tr class="even">
+<td align="left">global</td>
+<td align="left">mighty - global filters to apply after combining base
+datasets</td>
+<td align="left">No</td>
+<td align="left"><a href="#global_input_list">mighty/global_input_list</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="base_input_list" class="section level3">
+<h3>base_input_list</h3>
+<p>mighty - list of base input datasets</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Items</th>
+<th align="left">Min Items</th>
+<th align="left">Unique Items</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">array</td>
+<td align="left"><a href="#base_input">mighty/base_input</a></td>
+<td align="left">1</td>
+<td align="left">Yes</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="base_input" class="section level3">
+<h3>base_input</h3>
+<p>mighty - single base input dataset with filters</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Required</th>
+<th align="left">Additional Properties</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">object</td>
+<td align="left">domain<br>depends<br>filter</td>
+<td align="left">No</td>
+</tr>
+</tbody>
+</table>
+<div id="properties-6" class="section level4">
+<h4>Properties</h4>
+<table>
+<colgroup>
+<col width="9%" />
+<col width="61%" />
+<col width="10%" />
+<col width="18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+<th align="left">Required</th>
+<th align="left">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">domain</td>
+<td align="left">Name of the dataset to use</td>
+<td align="left">Yes</td>
+<td align="left"><a href="#name">cdisc/name</a></td>
+</tr>
+<tr class="even">
+<td align="left">depends</td>
+<td align="left">Which columns in the dataset the filter depends on</td>
+<td align="left">Yes</td>
+<td align="left"><a href="#depends">mighty/depends</a></td>
+</tr>
+<tr class="odd">
+<td align="left">filter</td>
+<td align="left"></td>
+<td align="left">Yes</td>
+<td align="left"><a href="#filter">mighty/filter</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="global_input_list" class="section level3">
+<h3>global_input_list</h3>
+<p>mighty - list of global filters</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Items</th>
+<th align="left">Min Items</th>
+<th align="left">Unique Items</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">array</td>
+<td align="left"><a href="#global_input">mighty/global_input</a></td>
+<td align="left">1</td>
+<td align="left">Yes</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="global_input" class="section level3">
+<h3>global_input</h3>
+<p>mighty - single global filter</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Required</th>
+<th align="left">Additional Properties</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">object</td>
+<td align="left">filter<br>depends</td>
+<td align="left">No</td>
+</tr>
+</tbody>
+</table>
+<div id="properties-7" class="section level4">
+<h4>Properties</h4>
+<table>
+<colgroup>
+<col width="11%" />
+<col width="52%" />
+<col width="13%" />
+<col width="22%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+<th align="left">Required</th>
+<th align="left">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">filter</td>
+<td align="left"></td>
+<td align="left">Yes</td>
+<td align="left"><a href="#filter">mighty/filter</a></td>
+</tr>
+<tr class="even">
+<td align="left">depends</td>
+<td align="left">Which columns the filter depends on</td>
+<td align="left">Yes</td>
+<td align="left"><a href="#depends">mighty/depends</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="depends_string" class="section level3">
+<h3>depends_string</h3>
+<p>A single dependency: COLUMN, DOMAIN.COLUMN, rows.ID, or
+parameters.ID</p>
+<table>
+<colgroup>
+<col width="7%" />
+<col width="92%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">string</td>
+<td align="left"><sup>([A-Z][A-Z0-9_]<em>(.[A-Z][A-Z0-9_]</em>)?)$|</sup>(rows|parameters).[A-Z][A-Z0-9_]*$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="depends" class="section level3">
+<h3>depends</h3>
+<p>List of dependencies needed before the component code can be
+evaluated</p>
+<table>
+<colgroup>
+<col width="32%" />
+<col width="32%" />
+<col width="14%" />
+<col width="19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Items</th>
+<th align="left">Min Items</th>
+<th align="left">Unique Items</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">array</td>
+<td align="left"><a href="#depends_string">mighty/depends_string</a></td>
+<td align="left">1</td>
+<td align="left">Yes</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="#depends_string">mighty/depends_string</a></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="include" class="section level3">
+<h3>include</h3>
+<p>Glue expression that evaluates to TRUE or FALSE</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">string</td>
+<td align="left">^{.*}$</td>
+</tr>
+<tr class="even">
+<td align="left">boolean</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="filter" class="section level3">
+<h3>filter</h3>
+<p>Filter specification. Must be an R expression that can be
+evaluated.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">string</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="component" class="section level3">
+<h3>component</h3>
+<p>mighty component used to carry out the desired derivation</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Required</th>
+<th align="left">Additional Properties</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">object</td>
+<td align="left">id</td>
+<td align="left">No</td>
+</tr>
+</tbody>
+</table>
+<div id="properties-8" class="section level4">
+<h4>Properties</h4>
+<table>
+<colgroup>
+<col width="5%" />
+<col width="78%" />
+<col width="7%" />
+<col width="9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+<th align="left">Type</th>
+<th align="left">Required</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">id</td>
+<td align="left">ID of the component. Either name of standard or file
+path to local component.</td>
+<td align="left">string</td>
+<td align="left">Yes</td>
+</tr>
+<tr class="even">
+<td align="left">with</td>
+<td align="left">named list of input arguments needed to render
+component</td>
+<td align="left">object</td>
+<td align="left">No</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
