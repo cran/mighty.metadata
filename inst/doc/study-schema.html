@@ -342,7 +342,10 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 <p><code>_study.yml</code> provides study-level properties for a study
-directory — the study identifier and an optional description. The file
+directory — the study identifier, an optional description, and the
+standards and terminologies applied in the study. Load it with
+<code>study_config()</code>, either directly or as the
+<code>@study</code> property of <code>mighty_study()</code>. The file
 structure is defined by a <a href="https://json-schema.org">JSON-schema</a> accessible with:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">system.file</span>(<span class="st">&quot;schema&quot;</span>, <span class="st">&quot;study.json&quot;</span>, <span class="at">package =</span> <span class="st">&quot;mighty.metadata&quot;</span>)</span></code></pre></div>
 <p>Below you can find a detailed description of the structure.</p>
@@ -368,6 +371,83 @@ structure is defined by a <a href="https://json-schema.org">JSON-schema</a> acce
 <div id="properties" class="section level2">
 <h2>Properties</h2>
 <table>
+<colgroup>
+<col width="18%" />
+<col width="47%" />
+<col width="7%" />
+<col width="16%" />
+<col width="9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+<th align="left">Type</th>
+<th align="left">Items</th>
+<th align="left">Required</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">study_id</td>
+<td align="left">Unique identifier of the study</td>
+<td align="left">string</td>
+<td align="left">NULL</td>
+<td align="left">Yes</td>
+</tr>
+<tr class="even">
+<td align="left">study_description</td>
+<td align="left">Description of the study</td>
+<td align="left">string</td>
+<td align="left">NULL</td>
+<td align="left">No</td>
+</tr>
+<tr class="odd">
+<td align="left">standards</td>
+<td align="left">Standards applied in the study</td>
+<td align="left">array</td>
+<td align="left"><a href="#versioned_entry">versioned_entry</a></td>
+<td align="left">No</td>
+</tr>
+<tr class="even">
+<td align="left">terminology</td>
+<td align="left">Controlled terminologies applied in the study</td>
+<td align="left">array</td>
+<td align="left"><a href="#versioned_entry">versioned_entry</a></td>
+<td align="left">No</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="definitions" class="section level1">
+<h1>Definitions</h1>
+<div id="versioned_entry" class="section level2">
+<h2>versioned_entry</h2>
+<p>Entry identified by an id and a version</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Required</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">object</td>
+<td align="left">id<br>version</td>
+</tr>
+</tbody>
+</table>
+<div id="properties-1" class="section level3">
+<h3>Properties</h3>
+<table>
+<colgroup>
+<col width="7%" />
+<col width="78%" />
+<col width="6%" />
+<col width="7%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Name</th>
@@ -378,20 +458,50 @@ structure is defined by a <a href="https://json-schema.org">JSON-schema</a> acce
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">study_id</td>
-<td align="left">Unique identifier of the study</td>
+<td align="left">id</td>
+<td align="left">Identifier of the entry</td>
 <td align="left">string</td>
 <td align="left">Yes</td>
 </tr>
 <tr class="even">
-<td align="left">study_description</td>
-<td align="left">Description of the study</td>
+<td align="left">version</td>
+<td align="left">Version of the entry. Must be a string; quote values
+that look like numbers (e.g. ‘27.0’)</td>
 <td align="left">string</td>
-<td align="left">No</td>
+<td align="left">Yes</td>
 </tr>
 </tbody>
 </table>
 </div>
+</div>
+</div>
+<div id="standards-and-terminology" class="section level1">
+<h1>Standards and terminology</h1>
+<p><code>standards</code> and <code>terminology</code> are optional
+lists describing the standards and controlled terminologies applied in
+the study. Each entry requires an <code>id</code> and a
+<code>version</code>:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">study_id</span><span class="kw">:</span><span class="at"> example_study</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">standards</span><span class="kw">:</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="at">  </span><span class="kw">- </span><span class="fu">id</span><span class="kw">:</span><span class="at"> ADaM-IG</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="at">    </span><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="st">&#39;1.1&#39;</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="fu">terminology</span><span class="kw">:</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="at">  </span><span class="kw">- </span><span class="fu">id</span><span class="kw">:</span><span class="at"> MedDRA</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="at">    </span><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="st">&#39;22.1&#39;</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="at">  </span><span class="kw">- </span><span class="fu">id</span><span class="kw">:</span><span class="at"> WHODrug</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="at">    </span><span class="fu">version</span><span class="kw">:</span><span class="at"> 2023 JAN</span></span></code></pre></div>
+<p>Omitting a field and supplying an empty list
+(<code>standards: []</code>) are equivalent and mean that no entries are
+defined.</p>
+<p><code>version</code> must be a string. Since yaml infers types,
+unquoted values that look like numbers (e.g. <code>version: 27.0</code>)
+are read as numbers and fail validation. Quote them to keep the exact
+literal: <code>version: &#39;27.0&#39;</code>.</p>
+<p>Only the structure is validated here — presence, shape, and required
+fields. Domain-semantic checks, such as whether a submitted version
+actually exists, are the responsibility of the consuming package.</p>
 </div>
 
 

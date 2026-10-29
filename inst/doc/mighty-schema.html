@@ -359,7 +359,7 @@ framework. The file structure is defined by a <a href="https://json-schema.org">
 <tbody>
 <tr class="odd">
 <td align="left">object</td>
-<td align="left">external_data</td>
+<td align="left">external_data<br>repos</td>
 <td align="left">No</td>
 </tr>
 </tbody>
@@ -368,12 +368,13 @@ framework. The file structure is defined by a <a href="https://json-schema.org">
 <h2>Properties</h2>
 <table>
 <colgroup>
-<col width="12%" />
-<col width="42%" />
+<col width="6%" />
+<col width="48%" />
+<col width="2%" />
 <col width="5%" />
-<col width="11%" />
-<col width="19%" />
-<col width="8%" />
+<col width="9%" />
+<col width="22%" />
+<col width="4%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -382,6 +383,7 @@ framework. The file structure is defined by a <a href="https://json-schema.org">
 <th align="left">Type</th>
 <th align="left">Unique Items</th>
 <th align="left">Items</th>
+<th align="left">One Of</th>
 <th align="left">Required</th>
 </tr>
 </thead>
@@ -392,6 +394,17 @@ framework. The file structure is defined by a <a href="https://json-schema.org">
 <td align="left">array</td>
 <td align="left">Yes</td>
 <td align="left"><a href="#external_data_source">external_data_source</a></td>
+<td align="left">NULL</td>
+<td align="left">Yes</td>
+</tr>
+<tr class="even">
+<td align="left">repos</td>
+<td align="left">Component repositories to search for ADaM code
+components, as local paths or <a href="mailto:owner/repo/subdir@ref" class="email">owner/repo/subdir@ref</a> strings</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">NULL</td>
+<td align="left">array , TRUE , 1 , string, 1 , string, 1</td>
 <td align="left">Yes</td>
 </tr>
 </tbody>

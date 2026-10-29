@@ -41,27 +41,20 @@ test_that("mighty_study()", {
     expect_equal(c("ADAE", "ADSL", "ADVS"))
 
   S7::prop_names(study) |>
-    expect_equal(c("mighty", "study", "path"))
+    expect_equal(c("mighty", "study", "documents", "codelists", "path"))
 
+  expect_true(S7::S7_inherits(study@mighty, mighty_config))
   expect_equal(
-    object = study@mighty,
+    object = study@mighty$external_data,
     expected = list(
-      external_data = list(
-        list(id = "DM", keys = c("STUDYID", "USUBJID"))
-      )
+      list(id = "DM", keys = c("STUDYID", "USUBJID"))
     )
   )
 
+  expect_true(S7::S7_inherits(study@study, study_config))
   expect_equal(
-    object = study@study,
-    expected = list(
-      study_id = "test_study"
-    )
-  )
-
-  expect_error(
-    study@study <- list(not_study_id = "missing required field"),
-    "study_id"
+    object = study@study$study_id,
+    expected = "test_study"
   )
 
   expect_snapshot(
@@ -71,6 +64,62 @@ test_that("mighty_study()", {
       gsub(pattern = "mighty\\.metadata::", replacement = "", x = x)
     }
   )
+
+  expect_equal(
+    object = sort(list_documents(study)),
+    expected = sort(c("SUPPDOC001", "COMMENT001", "METHOD001"))
+  )
+})
+
+test_that("@mighty accepts NULL and rejects invalid types", {
+  study <- test_path("test_study") |> mighty_study()
+
+  study@mighty <- NULL
+  expect_null(study@mighty)
+
+  expect_error(study@mighty <- "not a mighty_config")
+  expect_error(study@mighty <- list(external_data = list()))
+})
+
+test_that("@study accepts NULL and rejects invalid types", {
+  study <- test_path("test_study") |> mighty_study()
+
+  study@study <- NULL
+  expect_null(study@study)
+
+  expect_error(study@study <- "not a study_config")
+  expect_error(study@study <- list(study_id = "test_study"))
+})
+
+test_that("mighty_study() without _study.yml has NULL @study", {
+  tmp <- withr::local_tempdir()
+  file.copy(
+    from = test_path("test_study", c("_mighty.yml", "adsl.yml")),
+    to = tmp
+  )
+
+  study <- mighty_study(path = tmp) |> expect_no_condition()
+
+  expect_null(study@study)
+  expect_snapshot(
+    x = print(study),
+    transform = \(x) {
+      # Robust between S7 versions
+      gsub(pattern = "mighty\\.metadata::", replacement = "", x = x)
+    }
+  )
+})
+
+test_that("mighty_study() without _mighty.yml has NULL @mighty", {
+  tmp <- withr::local_tempdir()
+  file.copy(
+    from = test_path("test_study", c("_study.yml", "adsl.yml")),
+    to = tmp
+  )
+
+  study <- mighty_study(path = tmp) |> expect_no_condition()
+
+  expect_null(study@mighty)
 })
 
 test_that("validate_path() errors when @path set to non-existent directory", {
@@ -98,4 +147,19 @@ test_that("validate_path() errors on character(0)", {
 test_that("validate_path() errors on NA", {
   study <- test_path("test_study") |> mighty_study()
   expect_error(study@path <- NA_character_, "single non-NA string")
+})
+
+test_that("validate_datasets() error on incorrect file name", {
+  files <- c("example/adae.yaml", "example/advs.yaml", "example/_test.yaml")
+  expect_snapshot(validate_datasets(files), error = TRUE)
+})
+
+test_that("validate_datasets() accepts AD* dataset file names", {
+  files <- c("example/adae.yaml", "example/advs.yaml")
+  expect_no_error(validate_datasets(files))
+})
+
+test_that("validate_datasets() accepts MD* dataset file names", {
+  files <- c("example/mdcol.yaml", "example/mdparam.yaml")
+  expect_no_error(validate_datasets(files))
 })

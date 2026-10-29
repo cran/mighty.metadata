@@ -12,9 +12,27 @@
       "items": {
         "$ref": "#/definitions/external_data_source"
       }
+    },
+    "repos": {
+      "description": "Component repositories to search for ADaM code components, as local paths or owner/repo/subdir@ref strings",
+      "oneOf": [
+        {
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        {
+          "type": "string",
+          "minLength": 1
+        }
+      ]
     }
   },
-  "required": ["external_data"],
+  "required": ["external_data", "repos"],
   "additionalProperties": false,
   "definitions": {
     "external_data_source": {

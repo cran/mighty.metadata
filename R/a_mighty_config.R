@@ -1,0 +1,122 @@
+#' Mighty Config
+#'
+#' @description
+#' `mighty_config()` provides a robust way of working with the `_mighty.yml`
+#' configuration file in the `{mighty}` framework.
+#'
+#' A new object is initialized by supplying either the path to a `_mighty.yml`
+#' file or an in-memory `list` of the same content. Both are automatically
+#' validated against the `mighty.json` schema.
+#'
+#' `mighty_config()` inherits from `S7schema::S7schema()`. You can validate
+#' an object at any time by calling `validate()` and use `write_config()` to
+#' save it back as a yaml file.
+#'
+#' @param file `character(1)` path to a `_mighty.yml` file. Mutually exclusive
+#'   with `.data`.
+#' @param .data `list` holding a `_mighty.yml` configuration already in memory.
+#'   Mutually exclusive with `file`.
+#'
+#' @return A `mighty_config` S7 object extending [S7schema::S7schema].
+#' \describe{
+#'   \item{`external_data`}{A list of external data source specifications,
+#'     each with an `id` and `keys` field.}
+#'   \item{`repos`}{A character vector of component repository locations.}
+#' }
+#'
+#' @details
+#' The `_mighty.yml` file is validated against the `mighty.json` schema on
+#' load. The file must contain an `external_data` array declaring the primary
+#' keys of any datasets external to the ADaM study (e.g. SDTM or reference
+#' datasets) that ADaM domain specifications may depend on.
+#'
+#' The required `repos` field specifies where `mighty.component` should look
+#' for shared components. Each entry is either a local path (e.g. `"."`) or a
+#' GitHub reference in `owner/repo/subdir@ref` format (e.g.
+#' `"NovoNordisk-OpenSource/mighty.standards/components@main"`).
+#'
+#' @section Write Config:
+#' Use [write_config()] to serialize a `mighty_config()` object back to a
+#' `_mighty.yml` file. Supply `path` to write to a specific file; defaults to
+#' the file the object was loaded from.
+#'
+#' @seealso [mighty_study], [study_config], [mighty_domain], [write_config()]
+#'
+#' @examples
+#' x <- mighty_config(
+#'   file = system.file("examples", "_mighty.yml", package = "mighty.metadata")
+#' )
+#'
+#' # Custom print method gives a small overview
+#' print(x)
+#'
+#' # Underlying object is a `list`
+#' str(x)
+#'
+#' # Write back to a file
+#' tmp <- tempfile(fileext = ".yml")
+#' write_config(x, path = tmp)
+#'
+#' # Or build one in memory
+#' mighty_config(
+#'   .data = list(
+#'     external_data = list(list(id = "DM", keys = "USUBJID")),
+#'     repos = "."
+#'   )
+#' )
+#'
+#' @name mighty_config
+NULL
+
+#' @noRd
+construct_mighty_config <- function(file, .data) {
+  S7::new_object(
+    S7schema::S7schema(
+      file = file,
+      schema = system.file(
+        "schema",
+        "mighty.json",
+        package = "mighty.metadata"
+      ),
+      .data = .data
+    )
+  )
+}
+
+#' @noRd
+validate_mighty_config <- function(self) {
+  self |>
+    check_unique_ids()
+  return(NULL)
+}
+
+#' @rdname mighty_config
+#' @export
+mighty_config <- S7::new_class(
+  name = "mighty_config",
+  parent = S7schema::S7schema,
+  constructor = construct_mighty_config,
+  validator = function(self) {
+    validate_mighty_config(self)
+  }
+)
+
+#' @noRd
+S7::method(print, mighty_config) <- function(x, ...) {
+  print_mighty_config(x)
+}
+
+#' @noRd
+print_mighty_config <- function(x, ...) {
+  n <- length(x$external_data)
+  ids <- vapply(x$external_data, \(e) e$id, character(1))
+
+  bullets <- c(
+    "{.cls {class(x)[[1]]}}",
+    "External data: {n} source{?s} ({.code {ids}})",
+    "Repos: {length(x$repos)} ({.code {x$repos}})"
+  )
+  cli::cli_bullets(bullets)
+
+  invisible(x)
+}

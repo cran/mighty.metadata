@@ -43,19 +43,6 @@ test_that("find_yml() errors on invalid YAML", {
   )
 })
 
-test_that("read_yml() returns empty list for NULL", {
-  expect_equal(read_yml(file = NULL), list())
-})
-
-test_that("read_yml() returns parsed YAML for valid path", {
-  file <- test_path("test_study", "_study.yml")
-
-  result <- read_yml(file = file)
-
-  expect_type(result, "list")
-  expect_equal(result$study_id, "test_study")
-})
-
 test_that("match_yml() returns default .yml path when no file exists", {
   tmp <- withr::local_tempdir()
 
@@ -90,29 +77,18 @@ test_that("match_yml() errors on multiple files", {
   )
 })
 
-test_that("write_yml() writes YAML content to new file in empty dir", {
+test_that("find_yml() accepts unquoted date versions", {
+  schema <- system.file("schema", "study.json", package = "mighty.metadata")
   tmp <- withr::local_tempdir()
+  file <- file.path(tmp, "_study.yml")
+  writeLines(
+    c("study_id: s", "standards:", "  - id: sdtm", "    version: 2025-08-06"),
+    file
+  )
 
-  write_yml(x = list(study_id = "test"), path = tmp, name = "_study")
-
-  expect_true(file.exists(file.path(tmp, "_study.yml")))
-})
-
-test_that("write_yml() overwrites existing .yaml file", {
-  tmp <- withr::local_tempdir()
-  writeLines("study_id: old", file.path(tmp, "_study.yaml"))
-
-  write_yml(x = list(study_id = "new"), path = tmp, name = "_study")
-
-  result <- yaml::read_yaml(file.path(tmp, "_study.yaml"))
-  expect_equal(result$study_id, "new")
-})
-
-test_that("write_yml() returns invisible(x)", {
-  tmp <- withr::local_tempdir()
-  x <- list(study_id = "test")
-
-  result <- write_yml(x = x, path = tmp, name = "_study")
-
-  expect_equal(result, x)
+  # On Windows `tempdir()` yields backslashes that `file.path()` keeps, while
+  # `list.files()` returns forward slashes.
+  find_yml(path = tmp, name = "_study", schema = schema) |>
+    normalizePath(winslash = "/") |>
+    expect_equal(normalizePath(file, winslash = "/"))
 })

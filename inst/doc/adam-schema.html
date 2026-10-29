@@ -439,31 +439,37 @@ with:</p>
 <td align="left">No</td>
 </tr>
 <tr class="odd">
+<td align="left">documents</td>
+<td align="left">Document references for the dataset</td>
+<td align="left"><a href="#documents">documents</a></td>
+<td align="left">No</td>
+</tr>
+<tr class="even">
 <td align="left">usecore</td>
 <td align="left">Flag to populate with core variables from ADSL</td>
 <td align="left">boolean</td>
 <td align="left">No</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">population</td>
 <td align="left">Population and base domain used to create the
 dataset</td>
 <td align="left"><a href="#population">mighty/population</a></td>
 <td align="left">No</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">columns</td>
 <td align="left">Columns in the dataset</td>
 <td align="left"><a href="#columns">columns</a></td>
 <td align="left">Yes</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">rows</td>
 <td align="left">Row derivations for mighty</td>
 <td align="left"><a href="#rows">rows</a></td>
 <td align="left">No</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">parameters</td>
 <td align="left">Parameters in a BDS dataset</td>
 <td align="left"><a href="#parameters">parameters</a></td>
@@ -636,14 +642,20 @@ conditionally required (Cond) or permissible (Perm)</td>
 <td align="left">string</td>
 <td align="left">No</td>
 </tr>
+<tr class="odd">
+<td align="left">documents</td>
+<td align="left">Document references for the column</td>
+<td align="left"><a href="#documents">documents</a></td>
+<td align="left">No</td>
+</tr>
 </tbody>
 </table>
 </div>
 </div>
 <div id="rows" class="section level2">
 <h2>rows</h2>
-<p>List of row action specifications. Typically used when adding
-additional rows to the data.</p>
+<p>List of row action specifications. Typically used when updating
+existing rows or adding additional rows to the data.</p>
 <table>
 <thead>
 <tr class="header">
@@ -730,6 +742,13 @@ other places, e.g. as a dependency.</td>
 <td align="left">Dependencies needed before the action can be carried
 out</td>
 <td align="left"><a href="#depends">mighty/depends</a></td>
+<td align="left">No</td>
+</tr>
+<tr class="even">
+<td align="left">subset</td>
+<td align="left">R expression restricting the row action to a subset of
+rows</td>
+<td align="left"><a href="#filter">mighty/filter</a></td>
 <td align="left">No</td>
 </tr>
 </tbody>
@@ -859,7 +878,7 @@ relevant columns</td>
 </table>
 <div id="properties-4" class="section level4">
 <h4>Properties</h4>
-<table style="width:100%;">
+<table style="width:99%;">
 <colgroup>
 <col width="2%" />
 <col width="8%" />
@@ -1390,6 +1409,91 @@ component</td>
 </table>
 </div>
 </div>
+</div>
+<div id="document_reference" class="section level2">
+<h2>document_reference</h2>
+<p>Reference to a study-level document by id</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Required</th>
+<th align="left">Additional Properties</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">object</td>
+<td align="left">id</td>
+<td align="left">No</td>
+</tr>
+</tbody>
+</table>
+<div id="properties-9" class="section level3">
+<h3>Properties</h3>
+<table>
+<colgroup>
+<col width="5%" />
+<col width="50%" />
+<col width="7%" />
+<col width="26%" />
+<col width="9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+<th align="left">Type</th>
+<th align="left">One Of</th>
+<th align="left">Required</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">id</td>
+<td align="left">Document id as defined in _documents.yaml</td>
+<td align="left">string</td>
+<td align="left">NULL</td>
+<td align="left">Yes</td>
+</tr>
+<tr class="even">
+<td align="left">page</td>
+<td align="left">Optional page reference in the target document</td>
+<td align="left"></td>
+<td align="left">integer, 1 , string</td>
+<td align="left">No</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="documents" class="section level2">
+<h2>documents</h2>
+<p>List of document references</p>
+<table>
+<colgroup>
+<col width="12%" />
+<col width="39%" />
+<col width="20%" />
+<col width="27%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Items</th>
+<th align="left">Min Items</th>
+<th align="left">Unique Items</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">array</td>
+<td align="left"><a href="#document_reference">document_reference</a></td>
+<td align="left">1</td>
+<td align="left">Yes</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 

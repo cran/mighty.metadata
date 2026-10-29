@@ -126,19 +126,19 @@ which_ids <- function(x, id) {
   which(list_ids(x) %in% id)
 }
 
-#' Helper to list all sub-elements with an 'include' entry
+#' Helper to list all sub-elements with an '{name}' entry
 #' @noRd
-list_includes <- function(x) {
+list_with_element <- function(x, name) {
   if (!length(x)) {
     return(character(0))
   }
 
-  is_include <- vapply(
+  has_name <- vapply(
     X = x,
-    FUN = \(x) "include" %in% names(x),
+    FUN = \(x) name %in% names(x),
     FUN.VALUE = logical(1)
   )
-  list_ids(x[is_include])
+  list_ids(x[has_name])
 }
 
 #' Helper to check that all lists have unique `id` entries
@@ -158,9 +158,65 @@ check_unique_ids <- function(x) {
   duplicates <- unique(flatter[duplicated(flatter)])
   names(duplicates) <- rep("x", times = length(duplicates))
 
-  if (length(duplicates)) {
-    cli::cli_abort(
-      c("Duplicate `id` entries found:", duplicates)
-    )
+  if (!length(duplicates)) {
+    return(x)
   }
+  cli::cli_abort(
+    c("Duplicate `id` entries found:", duplicates)
+  )
+}
+
+
+#' Check that no forbidden column-to-column dependencies exist in domain
+#'
+#' Column dependencies are allowed only on rows and parameters levels.
+#' Dependencies pointing directly to another column or multiple records are considered
+#' invalid and will terminate execution with a descriptive error.
+#' @noRd
+check_column_dependencies <- function(domain) {
+  if (!length(domain)) {
+    return(domain)
+  }
+
+  col_ids <- vapply(domain$columns, function(col) col$id, character(1))
+
+  bad_deps <- lapply(domain$columns, function(col) {
+    col$depends[!grepl("^(rows|parameters)\\.", col$depends)]
+  })
+
+  bad_by_col <- Filter(length, stats::setNames(bad_deps, col_ids))
+
+  if (!length(bad_by_col)) {
+    return(domain)
+  }
+
+  bullets <- vapply(
+    names(bad_by_col),
+    function(col_id) {
+      cli::format_inline(
+        "Column {.field {col_id}}: {.val {bad_by_col[[col_id]]}}"
+      )
+    },
+    character(1)
+  )
+  names(bullets) <- rep("x", length(bullets))
+
+  cli::cli_abort(c(
+    "Column dependencies must reference {.field rows} or {.field parameters} only. The following are malformed:",
+    bullets,
+    "i" = "Domain: {.field {domain$id}}"
+  ))
+}
+
+#' Check if strings start with any of the given prefixes (case-insensitive)
+#' @param x `character()` strings to check.
+#' @param prefix `character()` one or more prefixes to match against (case-insensitive).
+#' @returns `logical()` of the same length as `x`.
+#' @noRd
+has_prefix <- function(x, prefix) {
+  prefixes <- paste(toupper(prefix), collapse = "|")
+  pattern <- sprintf("^(%s)", prefixes)
+  x |>
+    toupper() |>
+    grepl(pattern = pattern)
 }

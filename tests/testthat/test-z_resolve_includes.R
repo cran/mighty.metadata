@@ -89,7 +89,7 @@ test_that("resolve_includes() - study - complex", {
   )
 
   expect_equal(
-    object = study_resolved@study,
+    object = S7::S7_data(study_resolved@study),
     expected = list(
       study_id = "test_study",
       impute_baseline_row = FALSE
@@ -112,6 +112,31 @@ test_that("resolve_includes() - study - complex", {
   study_resolved$ADVS |>
     list_parameters() |>
     expect_contains(c("BMI", "BMIGRP"))
+})
+
+test_that("resolve_includes() - study - without @study", {
+  study <- test_path("test_study") |>
+    mighty_study()
+
+  study@study <- NULL
+
+  study$ADAE <- update_column(
+    study$ADAE,
+    id = "TRTEMFL",
+    include = "{study_id == 'test_study'}"
+  )
+
+  study |>
+    resolve_includes(info = list(study_id = "test_study")) |>
+    getElement("ADAE") |>
+    list_columns() |>
+    expect_contains("TRTEMFL")
+
+  study |>
+    resolve_includes(info = list(study_id = "other_study")) |>
+    getElement("ADAE") |>
+    list_columns() |>
+    expect_no_match("^TRTEMFL$")
 })
 
 test_that("resolve_includes() - domain", {
@@ -216,4 +241,45 @@ test_that("eval_include()", {
 
   eval_include("{y + z > 10}", info) |>
     expect_true()
+})
+
+test_that("resolve_includes() - drops columns inside parameters", {
+  domain <- test_path("test_study", "advs.yml") |>
+    mighty_domain() |>
+    update_parameter(
+      id = "BMI",
+      columns = list(
+        list(id = "AVAL", include = TRUE),
+        list(id = "AVISITN", include = FALSE)
+      )
+    )
+
+  result <- domain |>
+    resolve_includes() |>
+    select_parameter("BMI")
+
+  result[["columns"]] |>
+    list_ids() |>
+    expect_contains("AVAL") |>
+    expect_no_match("^AVISITN$")
+})
+
+test_that("resolve_includes() - removes include field from kept parameter columns", {
+  domain <- test_path("test_study", "advs.yml") |>
+    mighty_domain() |>
+    update_parameter(
+      id = "BMI",
+      columns = list(
+        list(id = "AVAL", include = TRUE)
+      )
+    )
+
+  result <- domain |>
+    resolve_includes() |>
+    select_parameter("BMI")
+
+  result[["columns"]] |>
+    get_id("AVAL") |>
+    names() |>
+    expect_no_match("^include$")
 })

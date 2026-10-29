@@ -9,7 +9,8 @@
 #'
 #' @param x A [mighty_study] or [mighty_domain] object.
 #' @param info `list()` Named list of values used to evaluate `include`
-#'   expressions. For [mighty_study], merged into `x@study`.
+#'   expressions. For [mighty_study], merged into the [study_config] held in
+#'   `x@study`.
 #' @returns The input object with conditional items resolved.
 #' @examples
 #' study <- mighty_study(
@@ -54,12 +55,15 @@ S7::method(resolve_includes, mighty_domain) <- function(x, info = list()) {
 
 #' @noRd
 includes_resolve_study <- function(study, info = list()) {
-  study@study[names(info)] <- info
+  if (!is.null(study@study)) {
+    study@study[names(info)] <- info
+    info <- study@study
+  }
 
   result <- lapply(
     X = study,
     FUN = resolve_includes,
-    info = study@study
+    info = info
   )
 
   dropped_domains <- names(result)[purrr::map_lgl(result, is.null)]
@@ -81,8 +85,18 @@ includes_resolve_domain <- function(domain, info = list()) {
   }
   domain$columns <- includes_resolve_list(domain$columns, info)
   domain$rows <- includes_resolve_list(domain$rows, info)
-  domain$parameters <- includes_resolve_list(domain$parameters, info)
+  domain$parameters <- includes_resolve_parameters(domain$parameters, info)
   validate(domain)
+}
+
+#' @noRd
+includes_resolve_parameters <- function(params, info) {
+  params <- includes_resolve_list(params, info)
+  if (is.null(params)) return(NULL)
+  lapply(params, function(param) {
+    param[["columns"]] <- includes_resolve_list(param[["columns"]], info)
+    param
+  })
 }
 
 #' @noRd
@@ -91,7 +105,7 @@ includes_resolve_list <- function(x, info) {
     return(NULL)
   }
 
-  ids <- list_includes(x)
+  ids <- list_with_element(x = x, name = "include")
 
   if (length(ids) == 0L) {
     return(x)

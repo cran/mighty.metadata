@@ -24,9 +24,12 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Aksel Thomsen \email{oath@novonordisk.com}
   \item Ari Siggaard Knoph \email{aikp@novonordisk.com}
   \item Matthew Phelps \email{mewp@novonordisk.com}
   \item Giulia Pais \email{egzp@novonordisk.com}
+  \item Katarzyna Graczyk \email{vzgc@novonordisk.com}
+  \item Michael Hedegaard Thomsen \email{mhzt@novonordisk.com}
 }
 
 Other contributors:

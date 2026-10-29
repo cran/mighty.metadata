@@ -358,20 +358,20 @@ subject-level dataset like ADSL, which only has columns:</p>
 <span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="fu">population</span><span class="kw">:</span></span>
 <span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="at">  </span><span class="fu">base</span><span class="kw">:</span></span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">domain</span><span class="kw">:</span><span class="at"> DM</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="at">    </span><span class="kw">- </span><span class="fu">domain</span><span class="kw">:</span><span class="at"> DM</span></span>
 <span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="at">      </span><span class="fu">depends</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">USUBJID</span><span class="kw">]</span></span>
 <span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="at">      </span><span class="fu">filter</span><span class="kw">:</span><span class="at"> USUBJID != &quot;&quot;</span></span>
 <span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a></span>
 <span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="fu">columns</span><span class="kw">:</span></span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">id</span><span class="kw">:</span><span class="at"> STUDYID</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="at">  </span><span class="kw">- </span><span class="fu">id</span><span class="kw">:</span><span class="at"> STUDYID</span></span>
 <span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="at">    </span><span class="fu">label</span><span class="kw">:</span><span class="at"> Study Identifier</span></span>
 <span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="at">    </span><span class="fu">method</span><span class="kw">:</span><span class="at"> DM.STUDYID</span></span>
 <span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="at">    </span><span class="fu">core</span><span class="kw">:</span><span class="at"> Req</span></span>
-<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">id</span><span class="kw">:</span><span class="at"> USUBJID</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="at">  </span><span class="kw">- </span><span class="fu">id</span><span class="kw">:</span><span class="at"> USUBJID</span></span>
 <span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="at">    </span><span class="fu">label</span><span class="kw">:</span><span class="at"> Unique Subject Identifier</span></span>
 <span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="at">    </span><span class="fu">method</span><span class="kw">:</span><span class="at"> DM.USUBJID</span></span>
 <span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="at">    </span><span class="fu">core</span><span class="kw">:</span><span class="at"> Req</span></span>
-<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="co">  # ... more columns ...</span></span></code></pre></div>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="at">  </span><span class="co"># ... more columns ...</span></span></code></pre></div>
 <p>Top-level keys define the domain identity (<code>id</code>,
 <code>label</code>, <code>class</code>, <code>structure</code>,
 <code>keys</code>). The <code>population</code> block declares which
@@ -393,14 +393,14 @@ metadata can be inherited from the referenced source via
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">keys</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">USUBJID</span><span class="kw">,</span><span class="at"> PARAMCD</span><span class="kw">,</span><span class="at"> AVISITN</span><span class="kw">]</span></span>
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a></span>
 <span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="fu">parameters</span><span class="kw">:</span></span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">id</span><span class="kw">:</span><span class="at"> BMI</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="at">  </span><span class="kw">- </span><span class="fu">id</span><span class="kw">:</span><span class="at"> BMI</span></span>
 <span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="at">    </span><span class="fu">label</span><span class="kw">:</span><span class="at"> Body Mass Index (kg/m^2)</span></span>
 <span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="at">    </span><span class="fu">columns</span><span class="kw">:</span></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">id</span><span class="kw">:</span><span class="at"> AVAL</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="at">      </span><span class="kw">- </span><span class="fu">id</span><span class="kw">:</span><span class="at"> AVAL</span></span>
 <span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="at">        </span><span class="fu">method</span><span class="kw">:</span><span class="at"> Derived from height and weight</span></span>
 <span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a></span>
 <span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="fu">rows</span><span class="kw">:</span></span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">id</span><span class="kw">:</span><span class="at"> BASELINE</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="at">  </span><span class="kw">- </span><span class="fu">id</span><span class="kw">:</span><span class="at"> BASELINE</span></span>
 <span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="at">    </span><span class="fu">method</span><span class="kw">:</span><span class="at"> Add baseline visit as a new row</span></span></code></pre></div>
 <p>See <code>vignette(&quot;adam-schema&quot;)</code> for the full schema
 reference.</p>
@@ -591,38 +591,83 @@ parameter:</p>
 <code>_mighty.yml</code> (mighty framework configuration).</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>study_path <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;examples&quot;</span>, <span class="at">package =</span> <span class="st">&quot;mighty.metadata&quot;</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>study <span class="ot">&lt;-</span> <span class="fu">mighty_study</span>(study_path)</span>
-<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>study</span>
-<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="co">#&gt; &lt;mighty.metadata::mighty_study/list/S7_object&gt;</span></span>
-<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a><span class="co">#&gt; @ mighty: `external_data`</span></span>
-<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a><span class="co">#&gt; @ study: `study_id`</span></span>
-<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a><span class="co">#&gt; $ ADAE: &lt;mighty.metadata::mighty_domain&gt;</span></span>
-<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a><span class="co">#&gt; $ ADSL: &lt;mighty.metadata::mighty_domain&gt;</span></span>
-<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a><span class="co">#&gt; $ ADVS: &lt;mighty.metadata::mighty_domain&gt;</span></span></code></pre></div>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="co">#&gt; → No `_documents.yml` file found</span></span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="co">#&gt; → No `_codelists.yml` file found</span></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>study</span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a><span class="co">#&gt; &lt;mighty.metadata::mighty_study/list/S7_object&gt;</span></span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a><span class="co">#&gt; @ mighty: &lt;mighty.metadata::mighty_config&gt;</span></span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a><span class="co">#&gt; @ study: &lt;mighty.metadata::study_config&gt;</span></span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a><span class="co">#&gt; $ ADAE: &lt;mighty.metadata::mighty_domain&gt;</span></span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a><span class="co">#&gt; $ ADSL: &lt;mighty.metadata::mighty_domain&gt;</span></span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a><span class="co">#&gt; $ ADVS: &lt;mighty.metadata::mighty_domain&gt;</span></span></code></pre></div>
 <p>Access individual domains with <code>$</code>. Study-level properties
-from <code>_study.yml</code> are stored in <code>@study</code> and
-mighty framework configuration from <code>_mighty.yml</code> is stored
-in <code>@mighty</code>. The <code>@</code> operator accesses properties
-of S7 objects:</p>
+from <code>_study.yml</code> are stored in <code>@study</code> as a
+<code>study_config()</code> object and mighty framework configuration
+from <code>_mighty.yml</code> is stored in <code>@mighty</code> as a
+<code>mighty_config()</code> object. Both are <code>NULL</code> when the
+corresponding file is absent. The <code>@</code> operator accesses
+properties of S7 objects:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">names</span>(study)</span>
 <span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;ADAE&quot; &quot;ADSL&quot; &quot;ADVS&quot;</span></span>
 <span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="fu">str</span>(study<span class="sc">@</span>study)</span>
-<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="co">#&gt; List of 1</span></span>
-<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="co">#&gt;  $ study_id: chr &quot;example_study&quot;</span></span>
-<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="fu">str</span>(study<span class="sc">@</span>mighty)</span>
-<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="co">#&gt; List of 1</span></span>
-<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="co">#&gt;  $ external_data:List of 3</span></span>
-<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="co">#&gt;   ..$ :List of 2</span></span>
-<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="co">#&gt;   .. ..$ id  : chr &quot;DM&quot;</span></span>
-<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="co">#&gt;   .. ..$ keys: chr [1:2] &quot;STUDYID&quot; &quot;USUBJID&quot;</span></span>
-<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="co">#&gt;   ..$ :List of 2</span></span>
-<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a><span class="co">#&gt;   .. ..$ id  : chr &quot;VS&quot;</span></span>
-<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a><span class="co">#&gt;   .. ..$ keys: chr [1:2] &quot;STUDYID&quot; &quot;USUBJID&quot;</span></span>
-<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a><span class="co">#&gt;   ..$ :List of 2</span></span>
-<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a><span class="co">#&gt;   .. ..$ id  : chr &quot;AE&quot;</span></span>
-<span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a><span class="co">#&gt;   .. ..$ keys: chr [1:2] &quot;STUDYID&quot; &quot;USUBJID&quot;</span></span></code></pre></div>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="co">#&gt; &lt;mighty.metadata::study_config&gt; List of 3</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="co">#&gt;  $ study_id   : chr &quot;example_study&quot;</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="co">#&gt;  $ standards  :List of 1</span></span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="co">#&gt;   ..$ :List of 2</span></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="co">#&gt;   .. ..$ id     : chr &quot;ADaM-IG&quot;</span></span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="co">#&gt;   .. ..$ version: chr &quot;1.1&quot;</span></span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="co">#&gt;  $ terminology:List of 4</span></span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="co">#&gt;   ..$ :List of 2</span></span>
+<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="co">#&gt;   .. ..$ id     : chr &quot;ADAM&quot;</span></span>
+<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a><span class="co">#&gt;   .. ..$ version: chr &quot;2025-08-06&quot;</span></span>
+<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a><span class="co">#&gt;   ..$ :List of 2</span></span>
+<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a><span class="co">#&gt;   .. ..$ id     : chr &quot;SDTM&quot;</span></span>
+<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a><span class="co">#&gt;   .. ..$ version: chr &quot;2025-08-06&quot;</span></span>
+<span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a><span class="co">#&gt;   ..$ :List of 2</span></span>
+<span id="cb15-18"><a href="#cb15-18" tabindex="-1"></a><span class="co">#&gt;   .. ..$ id     : chr &quot;MedDRA&quot;</span></span>
+<span id="cb15-19"><a href="#cb15-19" tabindex="-1"></a><span class="co">#&gt;   .. ..$ version: chr &quot;22.1&quot;</span></span>
+<span id="cb15-20"><a href="#cb15-20" tabindex="-1"></a><span class="co">#&gt;   ..$ :List of 2</span></span>
+<span id="cb15-21"><a href="#cb15-21" tabindex="-1"></a><span class="co">#&gt;   .. ..$ id     : chr &quot;WHODrug&quot;</span></span>
+<span id="cb15-22"><a href="#cb15-22" tabindex="-1"></a><span class="co">#&gt;   .. ..$ version: chr &quot;2023 JAN&quot;</span></span>
+<span id="cb15-23"><a href="#cb15-23" tabindex="-1"></a><span class="co">#&gt;  @ schema   : chr &quot;/private/var/folders/fx/71by3f551qzb5wkxt82cv15m0000gp/T/RtmpgghkU5/Rinstcb413dfeba70/mighty.metadata/schema/study.json&quot;</span></span>
+<span id="cb15-24"><a href="#cb15-24" tabindex="-1"></a><span class="co">#&gt;  @ validator: &lt;S7schema::validator&gt;</span></span>
+<span id="cb15-25"><a href="#cb15-25" tabindex="-1"></a><span class="co">#&gt;  .. @ context:List of 6</span></span>
+<span id="cb15-26"><a href="#cb15-26" tabindex="-1"></a><span class="co">#&gt;  .. .. $ context :&lt;externalptr&gt; </span></span>
+<span id="cb15-27"><a href="#cb15-27" tabindex="-1"></a><span class="co">#&gt;  .. .. $ validate:function (code_string)  </span></span>
+<span id="cb15-28"><a href="#cb15-28" tabindex="-1"></a><span class="co">#&gt;  .. .. $ source  :function (file = NULL, code = NULL)  </span></span>
+<span id="cb15-29"><a href="#cb15-29" tabindex="-1"></a><span class="co">#&gt;  .. .. $ call    :function (function_name, ...)  </span></span>
+<span id="cb15-30"><a href="#cb15-30" tabindex="-1"></a><span class="co">#&gt;  .. .. $ get     :function (var_name)  </span></span>
+<span id="cb15-31"><a href="#cb15-31" tabindex="-1"></a><span class="co">#&gt;  .. .. $ assign  :function (var_name, value)  </span></span>
+<span id="cb15-32"><a href="#cb15-32" tabindex="-1"></a><span class="co">#&gt;  .. .. - attr(*, &quot;class&quot;)= chr &quot;JSContext&quot;</span></span>
+<span id="cb15-33"><a href="#cb15-33" tabindex="-1"></a><span class="co">#&gt;  @ file     : chr &quot;/private/var/folders/fx/71by3f551qzb5wkxt82cv15m0000gp/T/RtmpgghkU5/Rinstcb413dfeba70/mighty.metadata/examples/_study.yml&quot;</span></span>
+<span id="cb15-34"><a href="#cb15-34" tabindex="-1"></a><span class="fu">str</span>(study<span class="sc">@</span>mighty)</span>
+<span id="cb15-35"><a href="#cb15-35" tabindex="-1"></a><span class="co">#&gt; &lt;mighty.metadata::mighty_config&gt; List of 2</span></span>
+<span id="cb15-36"><a href="#cb15-36" tabindex="-1"></a><span class="co">#&gt;  $ external_data:List of 3</span></span>
+<span id="cb15-37"><a href="#cb15-37" tabindex="-1"></a><span class="co">#&gt;   ..$ :List of 2</span></span>
+<span id="cb15-38"><a href="#cb15-38" tabindex="-1"></a><span class="co">#&gt;   .. ..$ id  : chr &quot;DM&quot;</span></span>
+<span id="cb15-39"><a href="#cb15-39" tabindex="-1"></a><span class="co">#&gt;   .. ..$ keys: chr [1:2] &quot;STUDYID&quot; &quot;USUBJID&quot;</span></span>
+<span id="cb15-40"><a href="#cb15-40" tabindex="-1"></a><span class="co">#&gt;   ..$ :List of 2</span></span>
+<span id="cb15-41"><a href="#cb15-41" tabindex="-1"></a><span class="co">#&gt;   .. ..$ id  : chr &quot;VS&quot;</span></span>
+<span id="cb15-42"><a href="#cb15-42" tabindex="-1"></a><span class="co">#&gt;   .. ..$ keys: chr [1:2] &quot;STUDYID&quot; &quot;USUBJID&quot;</span></span>
+<span id="cb15-43"><a href="#cb15-43" tabindex="-1"></a><span class="co">#&gt;   ..$ :List of 2</span></span>
+<span id="cb15-44"><a href="#cb15-44" tabindex="-1"></a><span class="co">#&gt;   .. ..$ id  : chr &quot;AE&quot;</span></span>
+<span id="cb15-45"><a href="#cb15-45" tabindex="-1"></a><span class="co">#&gt;   .. ..$ keys: chr [1:2] &quot;STUDYID&quot; &quot;USUBJID&quot;</span></span>
+<span id="cb15-46"><a href="#cb15-46" tabindex="-1"></a><span class="co">#&gt;  $ repos        : chr [1:2] &quot;NovoNordisk-OpenSource/mighty.standards/components@main&quot; &quot;.&quot;</span></span>
+<span id="cb15-47"><a href="#cb15-47" tabindex="-1"></a><span class="co">#&gt;  @ schema   : chr &quot;/private/var/folders/fx/71by3f551qzb5wkxt82cv15m0000gp/T/RtmpgghkU5/Rinstcb413dfeba70/mighty.metadata/schema/mighty.json&quot;</span></span>
+<span id="cb15-48"><a href="#cb15-48" tabindex="-1"></a><span class="co">#&gt;  @ validator: &lt;S7schema::validator&gt;</span></span>
+<span id="cb15-49"><a href="#cb15-49" tabindex="-1"></a><span class="co">#&gt;  .. @ context:List of 6</span></span>
+<span id="cb15-50"><a href="#cb15-50" tabindex="-1"></a><span class="co">#&gt;  .. .. $ context :&lt;externalptr&gt; </span></span>
+<span id="cb15-51"><a href="#cb15-51" tabindex="-1"></a><span class="co">#&gt;  .. .. $ validate:function (code_string)  </span></span>
+<span id="cb15-52"><a href="#cb15-52" tabindex="-1"></a><span class="co">#&gt;  .. .. $ source  :function (file = NULL, code = NULL)  </span></span>
+<span id="cb15-53"><a href="#cb15-53" tabindex="-1"></a><span class="co">#&gt;  .. .. $ call    :function (function_name, ...)  </span></span>
+<span id="cb15-54"><a href="#cb15-54" tabindex="-1"></a><span class="co">#&gt;  .. .. $ get     :function (var_name)  </span></span>
+<span id="cb15-55"><a href="#cb15-55" tabindex="-1"></a><span class="co">#&gt;  .. .. $ assign  :function (var_name, value)  </span></span>
+<span id="cb15-56"><a href="#cb15-56" tabindex="-1"></a><span class="co">#&gt;  .. .. - attr(*, &quot;class&quot;)= chr &quot;JSContext&quot;</span></span>
+<span id="cb15-57"><a href="#cb15-57" tabindex="-1"></a><span class="co">#&gt;  @ file     : chr &quot;/private/var/folders/fx/71by3f551qzb5wkxt82cv15m0000gp/T/RtmpgghkU5/Rinstcb413dfeba70/mighty.metadata/examples/_mighty.yml&quot;</span></span></code></pre></div>
 <p>The <code>_study.yml</code> file provides the <code>study_id</code>.
 The <code>_mighty.yml</code> file provides <code>external_data</code>
-definitions (source domains and their keys).</p>
+definitions (source domains and their keys) and the <code>repos</code>
+where components are found.</p>
 </div>
 <div id="populating-core-variables" class="section level3">
 <h3>Populating Core Variables</h3>
@@ -689,25 +734,29 @@ across the study, filling in only missing properties.</p>
 <h3>The Complete Study Pipeline</h3>
 <p>Here is the full pipeline in one block:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>study <span class="ot">&lt;-</span> <span class="fu">mighty_study</span>(study_path)</span>
-<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a><span class="co"># Mark ADSL core variables</span></span>
-<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>study<span class="sc">$</span>ADSL <span class="ot">&lt;-</span> study<span class="sc">$</span>ADSL <span class="sc">|&gt;</span></span>
-<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>  <span class="fu">update_column</span>(<span class="at">id =</span> <span class="st">&quot;SEX&quot;</span>, <span class="at">is_core =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a>  <span class="fu">update_column</span>(<span class="at">id =</span> <span class="st">&quot;RACE&quot;</span>, <span class="at">is_core =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a></span>
-<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a><span class="co"># Mark consumer domains</span></span>
-<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a>study<span class="sc">$</span>ADAE[[<span class="st">&quot;usecore&quot;</span>]] <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
-<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a></span>
-<span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a><span class="co"># Run the pipeline</span></span>
-<span id="cb19-12"><a href="#cb19-12" tabindex="-1"></a>study <span class="ot">&lt;-</span> study <span class="sc">|&gt;</span></span>
-<span id="cb19-13"><a href="#cb19-13" tabindex="-1"></a>  <span class="fu">populate_core</span>() <span class="sc">|&gt;</span></span>
-<span id="cb19-14"><a href="#cb19-14" tabindex="-1"></a>  <span class="fu">populate_sparse</span>()</span></code></pre></div>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="co">#&gt; → No `_documents.yml` file found</span></span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a><span class="co">#&gt; → No `_codelists.yml` file found</span></span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a><span class="co"># Mark ADSL core variables</span></span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a>study<span class="sc">$</span>ADSL <span class="ot">&lt;-</span> study<span class="sc">$</span>ADSL <span class="sc">|&gt;</span></span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a>  <span class="fu">update_column</span>(<span class="at">id =</span> <span class="st">&quot;SEX&quot;</span>, <span class="at">is_core =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a>  <span class="fu">update_column</span>(<span class="at">id =</span> <span class="st">&quot;RACE&quot;</span>, <span class="at">is_core =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a><span class="co"># Mark consumer domains</span></span>
+<span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a>study<span class="sc">$</span>ADAE[[<span class="st">&quot;usecore&quot;</span>]] <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb19-12"><a href="#cb19-12" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" tabindex="-1"></a><span class="co"># Run the pipeline</span></span>
+<span id="cb19-14"><a href="#cb19-14" tabindex="-1"></a>study <span class="ot">&lt;-</span> study <span class="sc">|&gt;</span></span>
+<span id="cb19-15"><a href="#cb19-15" tabindex="-1"></a>  <span class="fu">populate_core</span>() <span class="sc">|&gt;</span></span>
+<span id="cb19-16"><a href="#cb19-16" tabindex="-1"></a>  <span class="fu">populate_sparse</span>()</span></code></pre></div>
 <p>If your YAML files already include the <code>is_core</code> and
 <code>usecore</code> flags, the entire pipeline collapses to a single
 call. Passing <code>populate = TRUE</code> is equivalent to calling
 <code>populate_core()</code> then <code>populate_sparse()</code> after
 loading:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>study <span class="ot">&lt;-</span> <span class="fu">mighty_study</span>(study_path, <span class="at">populate =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>study <span class="ot">&lt;-</span> <span class="fu">mighty_study</span>(study_path, <span class="at">populate =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="co">#&gt; → No `_documents.yml` file found</span></span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a><span class="co">#&gt; → No `_codelists.yml` file found</span></span></code></pre></div>
 </div>
 <div id="saving-a-study" class="section level3">
 <h3>Saving a Study</h3>
@@ -730,12 +779,14 @@ loading:</p>
 <code>glue::glue_data()</code>) against the study’s <code>@study</code>
 values.</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>study <span class="ot">&lt;-</span> <span class="fu">mighty_study</span>(study_path)</span>
-<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>study<span class="sc">$</span>ADVS <span class="ot">&lt;-</span> study<span class="sc">$</span>ADVS <span class="sc">|&gt;</span></span>
-<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a>  <span class="fu">update_column</span>(</span>
-<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a>    <span class="at">id =</span> <span class="st">&quot;STUDYID&quot;</span>,</span>
-<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a>    <span class="at">include =</span> <span class="st">&quot;{study_id == &#39;example_study&#39;}&quot;</span></span>
-<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a>  )</span></code></pre></div>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a><span class="co">#&gt; → No `_documents.yml` file found</span></span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a><span class="co">#&gt; → No `_codelists.yml` file found</span></span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a>study<span class="sc">$</span>ADVS <span class="ot">&lt;-</span> study<span class="sc">$</span>ADVS <span class="sc">|&gt;</span></span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a>  <span class="fu">update_column</span>(</span>
+<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a>    <span class="at">id =</span> <span class="st">&quot;STUDYID&quot;</span>,</span>
+<span id="cb22-8"><a href="#cb22-8" tabindex="-1"></a>    <span class="at">include =</span> <span class="st">&quot;{study_id == &#39;example_study&#39;}&quot;</span></span>
+<span id="cb22-9"><a href="#cb22-9" tabindex="-1"></a>  )</span></code></pre></div>
 <p>When <code>study_id</code> in <code>@study</code> matches, the
 condition is <code>TRUE</code> and the column is kept:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>resolved <span class="ot">&lt;-</span> <span class="fu">resolve_includes</span>(study)</span>
@@ -747,31 +798,58 @@ condition is <code>TRUE</code> and the column is kept:</p>
 <span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="fu">list_columns</span>(resolved<span class="sc">$</span>ADVS)</span>
 <span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;USUBJID&quot;  &quot;SAFFL&quot;    &quot;TRTP&quot;     &quot;VISITNUM&quot; &quot;AVISITN&quot;  &quot;AVISIT&quot;  </span></span>
 <span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;PARAMCD&quot;  &quot;PARAM&quot;    &quot;AVAL&quot;     &quot;AVALC&quot;</span></span></code></pre></div>
-<p><code>include</code> works on parameters and rows too, not just
-columns.</p>
+<p><code>include</code> can be applied to columns, rows, parameters, and
+individual columns within a parameter.</p>
 </div>
-<div id="creating-a-flat-column-table" class="section level2">
-<h2>Creating a Flat Column Table</h2>
-<p><code>create_md_col()</code> flattens the study’s column
-specifications into a single tibble. This is the format consumed by
-downstream mighty tools.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="fu">create_md_col</span>(study)</span>
-<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a><span class="co">#&gt; # A tibble: 32 × 15</span></span>
-<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a><span class="co">#&gt;    table_id table_label      order id    label origin key   is_core core  method</span></span>
-<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;            &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;lgl&gt; &lt;lgl&gt;   &lt;chr&gt; &lt;chr&gt; </span></span>
-<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a><span class="co">#&gt;  1 ADAE     Adverse Events …     1 STUD… Stud… &lt;NA&gt;   FALSE NA      Req   AE.ST…</span></span>
-<span id="cb25-6"><a href="#cb25-6" tabindex="-1"></a><span class="co">#&gt;  2 ADAE     Adverse Events …     2 USUB… Uniq… &lt;NA&gt;   TRUE  NA      Req   AE.US…</span></span>
-<span id="cb25-7"><a href="#cb25-7" tabindex="-1"></a><span class="co">#&gt;  3 ADAE     Adverse Events …     3 AESEQ Sequ… &lt;NA&gt;   TRUE  NA      Cond  AE.AE…</span></span>
-<span id="cb25-8"><a href="#cb25-8" tabindex="-1"></a><span class="co">#&gt;  4 ADAE     Adverse Events …     4 AETE… Repo… &lt;NA&gt;   FALSE NA      Req   AE.AE…</span></span>
-<span id="cb25-9"><a href="#cb25-9" tabindex="-1"></a><span class="co">#&gt;  5 ADAE     Adverse Events …     5 AEDE… Dict… &lt;NA&gt;   FALSE NA      Cond  AE.AE…</span></span>
-<span id="cb25-10"><a href="#cb25-10" tabindex="-1"></a><span class="co">#&gt;  6 ADAE     Adverse Events …     6 AEBO… Body… &lt;NA&gt;   FALSE NA      Cond  AE.AE…</span></span>
-<span id="cb25-11"><a href="#cb25-11" tabindex="-1"></a><span class="co">#&gt;  7 ADAE     Adverse Events …     7 ASTDT Anal… &lt;NA&gt;   FALSE NA      Cond  Deriv…</span></span>
-<span id="cb25-12"><a href="#cb25-12" tabindex="-1"></a><span class="co">#&gt;  8 ADAE     Adverse Events …     8 AENDT Anal… &lt;NA&gt;   FALSE NA      Cond  Deriv…</span></span>
-<span id="cb25-13"><a href="#cb25-13" tabindex="-1"></a><span class="co">#&gt;  9 ADAE     Adverse Events …     9 TRTE… Trea… &lt;NA&gt;   FALSE NA      Cond  Deriv…</span></span>
-<span id="cb25-14"><a href="#cb25-14" tabindex="-1"></a><span class="co">#&gt; 10 ADSL     Subject-Level A…     1 STUD… Stud… &lt;NA&gt;   FALSE NA      Req   DM.ST…</span></span>
-<span id="cb25-15"><a href="#cb25-15" tabindex="-1"></a><span class="co">#&gt; # ℹ 22 more rows</span></span>
-<span id="cb25-16"><a href="#cb25-16" tabindex="-1"></a><span class="co">#&gt; # ℹ 5 more variables: codelist &lt;chr&gt;, format_type &lt;chr&gt;, format_length &lt;int&gt;,</span></span>
-<span id="cb25-17"><a href="#cb25-17" tabindex="-1"></a><span class="co">#&gt; #   format_display &lt;chr&gt;, comment &lt;chr&gt;</span></span></code></pre></div>
+<div id="creating-flat-metadata-tables" class="section level2">
+<h2>Creating Flat Metadata Tables</h2>
+<p>A set of <code>create_md_*()</code> functions flattens the study
+specifications into tibbles. This is the format consumed by downstream
+mighty tools.</p>
+<p><code>create_md_table()</code> gives one row per dataset:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="fu">create_md_table</span>(study)</span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 8</span></span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a><span class="co">#&gt;   order id    label                       class subclass structure keys  comment</span></span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;                       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;     &lt;lis&gt; &lt;chr&gt;  </span></span>
+<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a><span class="co">#&gt; 1     1 ADAE  Adverse Events Analysis Da… OCCU… ADVERSE… One reco… &lt;chr&gt; &lt;NA&gt;   </span></span>
+<span id="cb25-6"><a href="#cb25-6" tabindex="-1"></a><span class="co">#&gt; 2     2 ADSL  Subject-Level Analysis Dat… SUBJ… &lt;NA&gt;     One reco… &lt;chr&gt; &lt;NA&gt;   </span></span>
+<span id="cb25-7"><a href="#cb25-7" tabindex="-1"></a><span class="co">#&gt; 3     3 ADVS  Vital Signs Analysis Datas… BASI… &lt;NA&gt;     One reco… &lt;chr&gt; &lt;NA&gt;</span></span></code></pre></div>
+<p><code>create_md_col()</code> gives one row per column:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">create_md_col</span>(study)</span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a><span class="co">#&gt; # A tibble: 32 × 15</span></span>
+<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a><span class="co">#&gt;    table_id table_label      order id    label origin key   is_core core  method</span></span>
+<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;            &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;lgl&gt; &lt;lgl&gt;   &lt;chr&gt; &lt;chr&gt; </span></span>
+<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a><span class="co">#&gt;  1 ADAE     Adverse Events …     1 STUD… Stud… &lt;NA&gt;   FALSE NA      Req   AE.ST…</span></span>
+<span id="cb26-6"><a href="#cb26-6" tabindex="-1"></a><span class="co">#&gt;  2 ADAE     Adverse Events …     2 USUB… Uniq… &lt;NA&gt;   TRUE  NA      Req   AE.US…</span></span>
+<span id="cb26-7"><a href="#cb26-7" tabindex="-1"></a><span class="co">#&gt;  3 ADAE     Adverse Events …     3 AESEQ Sequ… &lt;NA&gt;   TRUE  NA      Cond  AE.AE…</span></span>
+<span id="cb26-8"><a href="#cb26-8" tabindex="-1"></a><span class="co">#&gt;  4 ADAE     Adverse Events …     4 AETE… Repo… &lt;NA&gt;   FALSE NA      Req   AE.AE…</span></span>
+<span id="cb26-9"><a href="#cb26-9" tabindex="-1"></a><span class="co">#&gt;  5 ADAE     Adverse Events …     5 AEDE… Dict… &lt;NA&gt;   FALSE NA      Cond  AE.AE…</span></span>
+<span id="cb26-10"><a href="#cb26-10" tabindex="-1"></a><span class="co">#&gt;  6 ADAE     Adverse Events …     6 AEBO… Body… &lt;NA&gt;   FALSE NA      Cond  AE.AE…</span></span>
+<span id="cb26-11"><a href="#cb26-11" tabindex="-1"></a><span class="co">#&gt;  7 ADAE     Adverse Events …     7 ASTDT Anal… &lt;NA&gt;   FALSE NA      Cond  Deriv…</span></span>
+<span id="cb26-12"><a href="#cb26-12" tabindex="-1"></a><span class="co">#&gt;  8 ADAE     Adverse Events …     8 AENDT Anal… &lt;NA&gt;   FALSE NA      Cond  Deriv…</span></span>
+<span id="cb26-13"><a href="#cb26-13" tabindex="-1"></a><span class="co">#&gt;  9 ADAE     Adverse Events …     9 TRTE… Trea… &lt;NA&gt;   FALSE NA      Cond  Deriv…</span></span>
+<span id="cb26-14"><a href="#cb26-14" tabindex="-1"></a><span class="co">#&gt; 10 ADSL     Subject-Level A…     1 STUD… Stud… &lt;NA&gt;   FALSE NA      Req   DM.ST…</span></span>
+<span id="cb26-15"><a href="#cb26-15" tabindex="-1"></a><span class="co">#&gt; # ℹ 22 more rows</span></span>
+<span id="cb26-16"><a href="#cb26-16" tabindex="-1"></a><span class="co">#&gt; # ℹ 5 more variables: codelist &lt;chr&gt;, format_type &lt;chr&gt;, format_length &lt;int&gt;,</span></span>
+<span id="cb26-17"><a href="#cb26-17" tabindex="-1"></a><span class="co">#&gt; #   format_display &lt;chr&gt;, comment &lt;chr&gt;</span></span></code></pre></div>
+<p><code>create_md_param()</code> gives one row per BDS parameter:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="fu">create_md_param</span>(study)</span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 5</span></span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a><span class="co">#&gt;   table_id table_label                  order id     label                   </span></span>
+<span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;                        &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;                   </span></span>
+<span id="cb27-5"><a href="#cb27-5" tabindex="-1"></a><span class="co">#&gt; 1 ADVS     Vital Signs Analysis Dataset     1 BMI    Body Mass Index (kg/m^2)</span></span>
+<span id="cb27-6"><a href="#cb27-6" tabindex="-1"></a><span class="co">#&gt; 2 ADVS     Vital Signs Analysis Dataset     2 BMIGRP Body Mass Index Group</span></span></code></pre></div>
+<p><code>create_md_values()</code> gives one row per column defined
+inside a parameter, i.e. the value level metadata:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="fu">create_md_values</span>(study)</span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 15</span></span>
+<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a><span class="co">#&gt;   table_id table_label param_order param_id param_label order id    label origin</span></span>
+<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;             &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;       &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; </span></span>
+<span id="cb28-5"><a href="#cb28-5" tabindex="-1"></a><span class="co">#&gt; 1 ADVS     Vital Sign…           1 BMI      Body Mass …     1 AVAL  &lt;NA&gt;  &lt;NA&gt;  </span></span>
+<span id="cb28-6"><a href="#cb28-6" tabindex="-1"></a><span class="co">#&gt; 2 ADVS     Vital Sign…           2 BMIGRP   Body Mass …     1 AVALC &lt;NA&gt;  &lt;NA&gt;  </span></span>
+<span id="cb28-7"><a href="#cb28-7" tabindex="-1"></a><span class="co">#&gt; 3 ADVS     Vital Sign…           2 BMIGRP   Body Mass …     2 AVAL  &lt;NA&gt;  &lt;NA&gt;  </span></span>
+<span id="cb28-8"><a href="#cb28-8" tabindex="-1"></a><span class="co">#&gt; # ℹ 6 more variables: method &lt;chr&gt;, codelist &lt;chr&gt;, format_type &lt;chr&gt;,</span></span>
+<span id="cb28-9"><a href="#cb28-9" tabindex="-1"></a><span class="co">#&gt; #   format_length &lt;int&gt;, format_display &lt;chr&gt;, comment &lt;chr&gt;</span></span></code></pre></div>
 </div>
 <div id="next-steps" class="section level2">
 <h2>Next Steps</h2>
@@ -780,8 +858,8 @@ downstream mighty tools.</p>
 <code>mighty_study()</code> for collections,
 <code>populate_core()</code> and <code>populate_sparse()</code> for
 metadata propagation, <code>write_config()</code> for saving changes,
-<code>resolve_includes()</code> for conditional specifications, and
-<code>create_md_col()</code> for flat output.</p>
+<code>resolve_includes()</code> for conditional specifications, and the
+<code>create_md_*()</code> functions for flat output.</p>
 <p>To learn more:</p>
 <ul>
 <li><code>vignette(&quot;adam-schema&quot;)</code> documents the domain YAML

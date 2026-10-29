@@ -1,11 +1,26 @@
-#' @section Write Study Metadata:
-#' Use `write_config()` to serialize a `mighty_study()` object back to YAML
-#' files. Each domain is written as a separate file, plus
-#' `_mighty.yml` and `_study.yml` when non-empty.
+#' Write a mighty object to YAML
 #'
-#' If `path` is `NULL` (default), files are written to `x@path`.
-#' @name mighty_study
-#' @rdname mighty_study
+#' Serializes [mighty_config], [study_config], and [mighty_study] objects back
+#' to YAML files. [mighty_config] and [study_config] inherit the
+#' [S7schema::write_config()] method of their parent class; [mighty_study] adds
+#' a method that writes every domain plus `_mighty.yml` and `_study.yml`.
+#'
+#' @param x A [mighty_config], [study_config], or [mighty_study] object.
+#' @param path Destination to write to. A file for [mighty_config] and
+#'   [study_config], a directory for [mighty_study]. If `NULL`, defaults to the
+#'   source the object was loaded from. Objects built from `.data` have `@file`
+#'   set to `NULL`, so `path` must be supplied explicitly for those.
+#'
+#' @returns Invisibly returns `x`.
+#'
+#' @seealso [mighty_config], [study_config], [mighty_study]
+#'
+#' @name write_config
+#' @export
+#' @importFrom S7schema write_config
+S7schema::write_config
+
+#' @rdname write_config
 S7::method(write_config, mighty_study) <- function(x, path = NULL) {
   write_mighty_study(x, path)
 }
@@ -18,11 +33,29 @@ write_mighty_study <- function(study, path) {
     path <- study@path
   }
 
-  if (length(study@mighty)) {
-    write_yml(x = study@mighty, path = path, name = "_mighty")
+  if (!is.null(study@mighty)) {
+    write_config(
+      x = study@mighty,
+      path = match_yml(path = path, name = "_mighty")
+    )
   }
-  if (length(study@study)) {
-    write_yml(x = study@study, path = path, name = "_study")
+  if (!is.null(study@study)) {
+    write_config(
+      x = study@study,
+      path = match_yml(path = path, name = "_study")
+    )
+  }
+  if (length(study@documents)) {
+    write_config(
+      x = study@documents,
+      path = match_yml(path = path, name = "_documents")
+    )
+  }
+  if (length(study@codelists)) {
+    write_config(
+      x = study@codelists,
+      path = match_yml(path = path, name = "_codelists")
+    )
   }
 
   for (i in seq_along(study)) {
